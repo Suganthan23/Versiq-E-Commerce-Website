@@ -2,7 +2,10 @@ Versiq - A Modern E-commerce Experience
 
   Versiq is a high-end menswear e-commerce platform built from the ground up to provide a top-tier digital experience. The project focuses on a sophisticated design aesthetic, fluid animations, and a seamless user journey from product discovery to a secure checkout.
 
-
+Live Demo links,
+  Vercel : https://versiq-e-commerce-website.vercel.app/
+  Netlify : https://versiq-ecommerce-site.netlify.app/
+  
 About The Project
   The goal of this project was to create a complete and immersive e-commerce brand experience. Every component, from the navbar's entrance animation to the product card's hover effects, was meticulously designed and implemented to reflect a premium, modern, and confident brand identity. The entire application is fully responsive, offering a flawless experience on all devices.
 
