@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence, useAnimation } from 'framer-motion';
-import { supabase } from '@/lib/supabase';
+import heroCategories from "@/data/heroCategories.json";
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 
@@ -57,20 +57,20 @@ const BlockHighlight = ({ children, className = '' }) => {
   );
 };
 
+
+
 const HeroSection = () => {
   const [heroData, setHeroData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
-    const fetchHeroData = async () => {
-      setLoading(true);
-      const { data, error } = await supabase.from('hero_categories').select('*').order('id', { ascending: true });
-      if (error) console.error("Error fetching hero data:", error);
-      else setHeroData(data);
+    const timer = setTimeout(() => {
+      setHeroData(heroCategories);
       setLoading(false);
-    };
-    fetchHeroData();
+    }, 300);
+
+    return () => clearTimeout(timer);
   }, []);
 
   const handleNext = useCallback(() => { if (heroData.length > 0) setIndex((prev) => (prev + 1) % heroData.length); }, [heroData.length]);

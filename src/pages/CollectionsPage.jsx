@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { supabase } from '../lib/supabase';
+import productsData from "../data/products.json";
 import AnimatedProductCard from '../components/AnimatedProductCard';
 import Container from '@/components/Container';
 import { Checkbox } from "@/components/ui/checkbox";
@@ -83,23 +83,12 @@ const CollectionsPage = () => {
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      setLoading(true);
-      setError(null);
-      try {
-        const { data, error: dbError } = await supabase.from('products').select('*');
-        if (dbError) throw dbError;
-        setProducts(data || []);
-      } catch (err) {
-        console.error('Error fetching products:', err);
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchProducts();
+    const timer = setTimeout(() => {
+      setProducts(productsData);
+      setLoading(false);
+    }, 300);
+    return () => clearTimeout(timer);
   }, []);
-
   const handleFilterChange = useCallback((category, value) => {
     setFilters(prev => {
       const currentCategoryFilters = prev[category] || [];
@@ -118,16 +107,16 @@ const CollectionsPage = () => {
   }, []);
 
   const filteredAndSortedProducts = useMemo(() => {
-    if (!products) return [];
+    if (!products || products.length === 0) return [];
     let productList = [...products];
-    
+
     productList = productList.filter(product => {
-        const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
-        const matchesSearch = product.name?.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchesPattern = filters.pattern.length === 0 || filters.pattern.includes(product.pattern);
-        const matchesColor = filters.color.length === 0 || filters.color.includes(product.color);
-        const matchesArrival = filters.arrival.length === 0 || filters.arrival.includes(product.arrival);
-        return matchesPrice && matchesSearch && matchesPattern && matchesColor && matchesArrival;
+      const matchesPrice = product.price >= priceRange[0] && product.price <= priceRange[1];
+      const matchesSearch = product.name?.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesPattern = filters.pattern.length === 0 || filters.pattern.includes(product.pattern);
+      const matchesColor = filters.color.length === 0 || filters.color.includes(product.color);
+      const matchesArrival = filters.arrival.length === 0 || filters.arrival.includes(product.arrival);
+      return matchesPrice && matchesSearch && matchesPattern && matchesColor && matchesArrival;
     });
 
     switch (sortOrder) {
@@ -135,7 +124,7 @@ const CollectionsPage = () => {
         productList.sort((a, b) => a.price - b.price);
         break;
       case 'price-desc':
-        productList.sort((a, b) => b.price - b.price);
+        productList.sort((a, b) => b.price - a.price);
         break;
       case 'newest':
       default:
@@ -169,22 +158,22 @@ const CollectionsPage = () => {
               <FiltersPanel filters={filters} handleFilterChange={handleFilterChange} clearFilters={clearFilters} sortOrder={sortOrder} setSortOrder={setSortOrder} />
             </SheetContent>
           </Sheet>
-          
+
           <div className="relative w-full md:flex-1">
-            <Input 
-              type="search" 
-              placeholder="Search in collection..." 
-              className="pl-10 bg-card" 
-              value={searchTerm} 
-              onChange={(e) => setSearchTerm(e.target.value)} 
+            <Input
+              type="search"
+              placeholder="Search in collection..."
+              className="pl-10 bg-card"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
           </div>
-          
+
           <div className="w-full md:w-auto">
           </div>
         </div>
-        
+
         {loading ? (
           <ProductGridSkeleton count={9} className="grid-cols-2 md:grid-cols-3" />
         ) : (

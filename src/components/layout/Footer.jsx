@@ -17,7 +17,6 @@ const FooterLinkColumn = ({ title, links }) => (
           <li key={link.name}>
             <LinkComponent
               to={link.href}
-              smooth={link.type === 'hashlink'}
               className="text-muted-foreground transition-colors hover:text-primary"
             >
               {link.name}

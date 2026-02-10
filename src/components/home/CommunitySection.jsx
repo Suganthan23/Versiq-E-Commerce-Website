@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { supabase } from '@/lib/supabase';
+import communityImages from '@/data/communityImages.json';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Instagram, ArrowUpRight } from 'lucide-react';
@@ -21,11 +21,11 @@ const CommunityImageCard = ({ image, index, onHoverStart, isHovered }) => {
     <motion.div
       className="absolute w-28 h-44 md:w-48 md:h-64 rounded-lg shadow-xl cursor-pointer"
       onMouseEnter={() => onHoverStart(index)}
-      
+
       initial={{ opacity: 0, y: 100, rotate: position.rotate + 10, scale: 0.8 }}
       animate={{ opacity: 1, y: position.y, x: position.x, rotate: position.rotate, scale: position.scale }}
       transition={{ type: 'tween', duration: 0.6, ease: [0.22, 1, 0.36, 1], delay: index * 0.08 }}
-      
+
       whileHover={{
         y: position.y - 20,
         scale: position.scale * 1.15,
@@ -34,7 +34,7 @@ const CommunityImageCard = ({ image, index, onHoverStart, isHovered }) => {
       }}
     >
       <img src={image.src} alt={image.alt} className="w-full h-full object-cover rounded-lg" />
-      
+
       <AnimatePresence>
         {isHovered && (
           <motion.div
@@ -63,32 +63,24 @@ const CommunitySection = () => {
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
   useEffect(() => {
-    const fetchCommunityImages = async () => {
-      setLoading(true);
-      const { data, error } = await supabase.from('community_images').select('*').order('id', { ascending: true }).limit(5);
-      if (error) {
-        console.error("Error fetching community images:", error.message);
-      } else {
-        const paddedData = [...(data || [])];
-        while (paddedData.length < 5) paddedData.push(null);
-        setImages(paddedData);
-      }
+    const timer = setTimeout(() => {
+      setImages(communityImages);
       setLoading(false);
-    };
-    fetchCommunityImages();
+    }, 300);
+    return () => clearTimeout(timer);
   }, []);
 
   if (loading) {
     return (
       <section id="community" className="py-20 sm:py-24 bg-card">
         <Container className="text-center">
-            <h2 className="text-4xl font-display text-primary">Styled by Versiq</h2>
-            <p className="mt-4 text-lg text-muted-foreground">Loading community styles...</p>
-            <div className="relative w-full h-80 mt-16 flex justify-center items-center">
-              {[...Array(5)].map((_, i) => (
-                <Skeleton key={i} className="absolute w-56 h-72 rounded-lg" style={{ transform: `translateX(${(i - 2) * 20}%) rotate(${(i - 2) * 5}deg)` }}/>
-              ))}
-            </div>
+          <h2 className="text-4xl font-display text-primary">Styled by Versiq</h2>
+          <p className="mt-4 text-lg text-muted-foreground">Loading community styles...</p>
+          <div className="relative w-full h-80 mt-16 flex justify-center items-center">
+            {[...Array(5)].map((_, i) => (
+              <Skeleton key={i} className="absolute w-56 h-72 rounded-lg" style={{ transform: `translateX(${(i - 2) * 20}%) rotate(${(i - 2) * 5}deg)` }} />
+            ))}
+          </div>
         </Container>
       </section>
     );
@@ -102,22 +94,22 @@ const CommunitySection = () => {
             Worn by You
           </h2>
           <p className="mt-4 text-lg text-muted-foreground tracking-wide">
-            Our pieces, your narrative. 
+            Our pieces, your narrative.
             <br /> Share your style with {''}
             <a href="#" className="font-semibold text-primary hover:underline">@versiq</a>  for a chance to be featured.
           </p>
         </div>
 
         {images.some(img => img) ? (
-          <div 
+          <div
             className="relative w-full h-96 lg:mt-16 flex justify-center items-center"
             onMouseLeave={() => setHoveredIndex(null)}
           >
-            {images.map((image, index) => 
+            {images.map((image, index) =>
               image && (
-                <CommunityImageCard 
-                  key={image.id} 
-                  image={image} 
+                <CommunityImageCard
+                  key={image.id}
+                  image={image}
                   index={index}
                   onHoverStart={setHoveredIndex}
                   isHovered={hoveredIndex === index}

@@ -71,7 +71,7 @@ const Navbar = () => {
     <>
       <header className="fixed top-0 left-0 right-0 z-50">
         <div className="bg-primary text-primary-foreground text-center py-2 text-xs font-medium">
-          <motion.div 
+          <motion.div
             className="flex items-center justify-center gap-2"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -82,11 +82,10 @@ const Navbar = () => {
             <Sparkles className="h-3.5 w-3.5" />
           </motion.div>
         </div>
-        
+
         <motion.div
-          className={`w-full transition-shadow duration-300 ${
-            isScrolled ? 'shadow-md' : 'shadow-none'
-          }`}
+          className={`w-full transition-shadow duration-300 ${isScrolled ? 'shadow-md' : 'shadow-none'
+            }`}
           variants={navbarVariants}
           initial="hidden"
           animate="visible"
@@ -98,7 +97,7 @@ const Navbar = () => {
                 <DesktopNavLinks navItems={navItems} activeSection={activeSection} />
               </motion.div>
               <motion.div variants={navItemVariants}>
-                <UserActions 
+                <UserActions
                   isMobileMenuOpen={isMobileMenuOpen}
                   onMenuToggle={toggleMobileMenu}
                 />

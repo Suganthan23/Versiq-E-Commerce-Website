@@ -1,22 +1,61 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { supabase } from '@/lib/supabase';
+import { motion, AnimatePresence } from 'framer-motion';
+import productsData from '@/data/products.json';
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from '@/components/ui/skeleton';
 import { Heart, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react';
 import Container from '@/components/Container';
-import { AnimatePresence } from 'framer-motion';
+import { useAuth } from '@/context/AuthContext';
+
+const WISHLIST_KEY_PREFIX = 'versiq_wishlist_';
+const getStorageKey = (userId) => `${WISHLIST_KEY_PREFIX}${userId}`;
 
 const MarqueeProductCard = ({ product }) => {
+    const { user } = useAuth();
     const [isWishlisted, setIsWishlisted] = useState(false);
+
     if (!product) return null;
+
+    useEffect(() => {
+        if (!user) {
+            setIsWishlisted(false);
+            return;
+        }
+        try {
+            const key = getStorageKey(user.id);
+            const stored = localStorage.getItem(key);
+            const ids = stored ? JSON.parse(stored) : [];
+            setIsWishlisted(ids.includes(product.id));
+        } catch (e) {
+            console.error('Error reading wishlist (new arrivals):', e);
+        }
+    }, [user, product.id]);
 
     const handleWishlistClick = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        setIsWishlisted(!isWishlisted);
+        if (!user) return; 
+
+        try {
+            const key = getStorageKey(user.id);
+            const stored = localStorage.getItem(key);
+            const ids = stored ? JSON.parse(stored) : [];
+
+            let updated;
+            if (ids.includes(product.id)) {
+                updated = ids.filter((id) => id !== product.id);
+                setIsWishlisted(false);
+            } else {
+                updated = [...ids, product.id];
+                setIsWishlisted(true);
+            }
+
+            localStorage.setItem(key, JSON.stringify(updated));
+        } catch (e) {
+            console.error('Error updating wishlist (new arrivals):', e);
+        }
     };
 
     return (
@@ -34,7 +73,10 @@ const MarqueeProductCard = ({ product }) => {
                 className="absolute top-4 right-4 bg-white/80 hover:bg-white rounded-full h-9 w-9 z-20"
                 onClick={handleWishlistClick}
             >
-                <Heart className={`h-5 w-5 text-foreground/80 transition-all ${isWishlisted ? 'fill-primary text-primary' : ''}`} />
+                <Heart
+                    className={`h-5 w-5 text-foreground/80 transition-all ${isWishlisted ? 'fill-primary text-primary' : ''
+                        }`}
+                />
             </Button>
             <CardContent className="absolute bottom-0 left-0 w-full p-6 text-white z-20">
                 <h3 className="text-xl font-semibold truncate">{product.name}</h3>
@@ -52,76 +94,105 @@ const MarqueeProductCard = ({ product }) => {
 };
 
 const NewArrivalsSection = () => {
-    const [products, setProducts] = useState([]);
+    const [newArrivals, setNewArrivals] = useState([]);
     const [loading, setLoading] = useState(true);
     const [position, setPosition] = useState(0);
     const [isHovered, setIsHovered] = useState(false);
     const intervalRef = useRef(null);
 
-    const CARD_WIDTH = 288; 
-    const GAP = 32;        
+    const CARD_WIDTH = 288;
+    const GAP = 32;
     const CARD_AND_GAP = CARD_WIDTH + GAP;
-    const LOOP_POINT = -((products.length / 2) * CARD_AND_GAP);
+    const cardCount = newArrivals.length || 0;
+    const LOOP_POINT = -((cardCount / 2) * CARD_AND_GAP);
 
     useEffect(() => {
-        const fetchNewArrivals = async () => {
-            setLoading(true);
-            const { data, error } = await supabase.from('products').select('*').eq('arrival', 'New').limit(10);
-            if (error) {
-                console.error("Error fetching new arrivals:", error);
-                setProducts([]);
-            } else {
-                setProducts(data ? [...data, ...data] : []);
-            }
+        const timer = setTimeout(() => {
+            const items = productsData
+                .filter((p) => p.arrival === 'New')
+                .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+                .slice(0, 10);
+
+            setNewArrivals(items);
             setLoading(false);
-        };
-        fetchNewArrivals();
+        }, 300);
+
+        return () => clearTimeout(timer);
     }, []);
 
     const startMarquee = () => {
+        if (intervalRef.current) clearInterval(intervalRef.current);
         intervalRef.current = setInterval(() => {
-            setPosition(prev => {
+            setPosition((prev) => {
                 if (prev <= LOOP_POINT) return 0;
                 return prev - 1;
             });
-        }, 30); 
+        }, 30);
     };
 
     const stopMarquee = () => {
-        clearInterval(intervalRef.current);
+        if (intervalRef.current) {
+            clearInterval(intervalRef.current);
+            intervalRef.current = null;
+        }
     };
 
     useEffect(() => {
-        if (!isHovered && products.length > 0) {
+        if (!isHovered && newArrivals.length > 0) {
             startMarquee();
         } else {
             stopMarquee();
         }
-        return () => stopMarquee(); 
-    }, [isHovered, products]);
+        return () => stopMarquee();
+    }, [isHovered, newArrivals.length, LOOP_POINT]);
 
     const handleNext = () => {
         const newPos = position - CARD_AND_GAP;
-        setPosition(Math.max(newPos, LOOP_POINT * 2)); 
-    };
-    
-    const handlePrev = () => {
-        const newPos = position + CARD_AND_GAP;
-        setPosition(Math.min(newPos, 0)); 
+        setPosition(Math.max(newPos, LOOP_POINT * 2));
     };
 
-    if (loading) { /* ... Skeleton component ... */ }
+    const handlePrev = () => {
+        const newPos = position + CARD_AND_GAP;
+        setPosition(Math.min(newPos, 0));
+    };
+
+    if (loading) {
+        return (
+            <section className="py-16 bg-card">
+                <Container>
+                    <div className="flex items-center justify-between mb-6">
+                        <h2 className="text-2xl md:text-3xl font-display font-semibold">
+                            New Arrivals
+                        </h2>
+                    </div>
+
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                        {[...Array(4)].map((_, i) => (
+                            <Skeleton
+                                key={i}
+                                className="h-72 w-full rounded-xl bg-muted"
+                            />
+                        ))}
+                    </div>
+                </Container>
+            </section>
+        );
+    }
 
     return (
         <section id="new-arrivals" className="py-10 sm:py-12 bg-card">
             <Container>
-                     <div className='text-center mb-16'>
-                        <h2 className="text-5xl font-bold font-display text-primary">New Arrivals</h2>
-                        <p className="mt-4 text-lg text-muted-foreground">Discover the latest additions to our curated collection.</p>
-                    </div>
+                <div className="text-center mb-16">
+                    <h2 className="text-5xl font-bold font-display text-primary">
+                        New Arrivals
+                    </h2>
+                    <p className="mt-4 text-lg text-muted-foreground">
+                        Discover the latest additions to our curated collection.
+                    </p>
+                </div>
             </Container>
-            
-            <div 
+
+            <div
                 className="relative w-full"
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
@@ -129,13 +200,35 @@ const NewArrivalsSection = () => {
                 <AnimatePresence>
                     {isHovered && (
                         <>
-                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute left-0 top-1/2 -translate-y-1/2 z-30">
-                                <Button variant="outline" size="icon" className="rounded-full h-12 w-12 shadow-md" onClick={handlePrev} disabled={position === 0}>
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className="absolute left-0 top-1/2 -translate-y-1/2 z-30"
+                            >
+                                <Button
+                                    variant="outline"
+                                    size="icon"
+                                    className="rounded-full h-12 w-12 shadow-md"
+                                    onClick={handlePrev}
+                                    disabled={position === 0}
+                                >
                                     <ChevronLeft className="h-6 w-6" />
                                 </Button>
                             </motion.div>
-                            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="absolute right-0 top-1/2 -translate-y-1/2 z-30">
-                                <Button variant="outline" size="icon" className="rounded-full h-12 w-12 shadow-md" onClick={handleNext} disabled={position <= LOOP_POINT * 2 + 1}>
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className="absolute right-0 top-1/2 -translate-y-1/2 z-30"
+                            >
+                                <Button
+                                    variant="outline"
+                                    size="icon"
+                                    className="rounded-full h-12 w-12 shadow-md"
+                                    onClick={handleNext}
+                                    disabled={position <= LOOP_POINT * 2 + 1}
+                                >
                                     <ChevronRight className="h-6 w-6" />
                                 </Button>
                             </motion.div>
@@ -149,8 +242,11 @@ const NewArrivalsSection = () => {
                         animate={{ x: position }}
                         transition={{ type: 'spring', stiffness: 400, damping: 50 }}
                     >
-                        {products.map((product, index) => (
-                            <MarqueeProductCard key={`${product.id}-${index}`} product={product} />
+                        {newArrivals.map((product, index) => (
+                            <MarqueeProductCard
+                                key={`${product.id}-${index}`}
+                                product={product}
+                            />
                         ))}
                     </motion.div>
                 </div>

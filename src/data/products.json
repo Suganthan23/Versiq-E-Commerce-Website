@@ -1,0 +1,513 @@
+[
+    {
+        "id": 12,
+        "created_at": "2025-08-25 07:32:36.599454+00",
+        "name": "Printed Brown Shirt",
+        "price": 1450,
+        "images": [
+            "/images/na2.jpg",
+            "/images/detail-12a.jpg"
+        ],
+        "pattern": "Printed",
+        "arrival": "New",
+        "sizes": [
+            "M",
+            "L"
+        ],
+        "color": "Brown"
+    },
+    {
+        "id": 13,
+        "created_at": "2025-08-25 07:35:03.117413+00",
+        "name": "Blue Crochet Shirt",
+        "price": 1850,
+        "images": [
+            "/images/na3.webp",
+            "/images/detail-13a.webp",
+            "/images/detail-13b.webp"
+        ],
+        "pattern": "Crochet",
+        "arrival": "New",
+        "sizes": [
+            "S",
+            "M",
+            "L"
+        ],
+        "color": "Blue"
+    },
+    {
+        "id": 23,
+        "created_at": "2025-08-30 07:48:54.640262+00",
+        "name": "Pink Crochet Shirt",
+        "price": 2121,
+        "images": [
+            "/images/na13.jpg",
+            "/images/detail-23a.jpg",
+            "/images/detail-23b.jpg"
+        ],
+        "pattern": "Crochet",
+        "arrival": "New",
+        "sizes": [
+            "S",
+            "M"
+        ],
+        "color": "Pink"
+    },
+    {
+        "id": 14,
+        "created_at": "2025-08-25 07:35:53.302618+00",
+        "name": "Brown Polo Shirt",
+        "price": 2000,
+        "images": [
+            "/images/na4.jpg",
+            "/images/detail-14a.jpg",
+            "/images/detail-14b.jpg"
+        ],
+        "pattern": "Printed",
+        "arrival": "New",
+        "sizes": [
+            "S",
+            "M"
+        ],
+        "color": "Brown"
+    },
+    {
+        "id": 26,
+        "created_at": "2025-08-30 08:40:05.538096+00",
+        "name": "White Crochet Shirt",
+        "price": 1111,
+        "images": [
+            "/images/na16.png",
+            "/images/detail-26a.png",
+            "/images/detail-26b.png"
+        ],
+        "pattern": "Crochet",
+        "arrival": "New",
+        "sizes": [
+            "M",
+            "L"
+        ],
+        "color": "White"
+    },
+    {
+        "id": 16,
+        "created_at": "2025-08-30 06:29:41.396489+00",
+        "name": "Blue Polo Shirt",
+        "price": 1750,
+        "images": [
+            "/images/na6.jpg",
+            "/images/detail-16a.jpg",
+            "/images/detail-16b.jpg"
+        ],
+        "pattern": "Striped",
+        "arrival": "New",
+        "sizes": [
+            "M",
+            "L"
+        ],
+        "color": "Blue"
+    },
+    {
+        "id": 17,
+        "created_at": "2025-08-30 06:34:09.512906+00",
+        "name": "Printed Rose Shirt",
+        "price": 1990,
+        "images": [
+            "/images/na7.jpg",
+            "/images/detail-17a.avif",
+            "/images/detail-17b.avif"
+        ],
+        "pattern": "Printed",
+        "arrival": "New",
+        "sizes": [
+            "M",
+            "L",
+            "XL"
+        ],
+        "color": "Rose"
+    },
+    {
+        "id": 18,
+        "created_at": "2025-08-30 06:39:31.774079+00",
+        "name": "Blue Linen Shirt",
+        "price": 1400,
+        "images": [
+            "/images/na8.avif",
+            "/images/detail-18a.avif",
+            "/images/detail-18b.jpg"
+        ],
+        "pattern": "Solid",
+        "arrival": "New",
+        "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "color": "Blue"
+    },
+    {
+        "id": 27,
+        "created_at": "2025-08-30 08:44:37.410825+00",
+        "name": "Printed Yellow Shirt",
+        "price": 1221,
+        "images": [
+            "/images/na17.jpg",
+            "/images/detail-27a.jpg",
+            "/images/detail-27b.jpg"
+        ],
+        "pattern": "Printed",
+        "arrival": "New",
+        "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "color": "Yellow"
+    },
+    {
+        "id": 24,
+        "created_at": "2025-08-30 08:13:27.085467+00",
+        "name": "Taupe Jacquard Overshirt",
+        "price": 2550,
+        "images": [
+            "/images/na14.jpg",
+            "/images/detail-24a.jpg",
+            "/images/detail-24b.jpg"
+        ],
+        "pattern": "Jacquard",
+        "arrival": "New",
+        "sizes": [
+            "M",
+            "L",
+            "XL"
+        ],
+        "color": "Taupe"
+    },
+    {
+        "id": 25,
+        "created_at": "2025-08-30 08:22:02.257943+00",
+        "name": "Burgundy Knit Polo Shirt",
+        "price": 2330,
+        "images": [
+            "/images/na15.webp",
+            "/images/detail-25a.webp",
+            "/images/detail-25b.webp"
+        ],
+        "pattern": "Knit",
+        "arrival": "New",
+        "sizes": [
+            "M",
+            "L"
+        ],
+        "color": "Burgundy"
+    },
+    {
+        "id": 1,
+        "created_at": "2025-08-25 07:22:00.585288+00",
+        "name": "Printed Green Shirt",
+        "price": 1750,
+        "images": [
+            "/images/mw1.jpg",
+            "/images/detail-1a.jpg",
+            "/images/detail-1b.jpg"
+        ],
+        "pattern": "Printed",
+        "arrival": "Old",
+        "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "color": "Green"
+    },
+    {
+        "id": 21,
+        "created_at": "2025-08-30 07:16:07.565129+00",
+        "name": "Beige Jacquard Knit Polo Shirt",
+        "price": 1880,
+        "images": [
+            "/images/na11.avif",
+            "/images/detail-21a.avif",
+            "/images/detail-21b.avif"
+        ],
+        "pattern": "Jacquard",
+        "arrival": "New",
+        "sizes": [
+            "M",
+            "L"
+        ],
+        "color": "Beige"
+    },
+    {
+        "id": 19,
+        "created_at": "2025-08-30 06:47:38.143096+00",
+        "name": "Green Crochet Shirt",
+        "price": 1900,
+        "images": [
+            "/images/na9.jpg",
+            "/images/detail-19a.jpg",
+            "/images/detail-19b.jpg"
+        ],
+        "pattern": "Crochet",
+        "arrival": "New",
+        "sizes": [
+            "S",
+            "M",
+            "L"
+        ],
+        "color": "Green"
+    },
+    {
+        "id": 2,
+        "created_at": "2025-08-25 07:22:59.072724+00",
+        "name": "Striped Green Shirt",
+        "price": 1400,
+        "images": [
+            "/images/mw2.webp",
+            "/images/detail-2a.webp",
+            "/images/detail-2b.webp"
+        ],
+        "pattern": "Striped",
+        "arrival": "Old",
+        "sizes": [
+            "M",
+            "L",
+            "XL"
+        ],
+        "color": "Green"
+    },
+    {
+        "id": 3,
+        "created_at": "2025-08-25 07:23:58.697192+00",
+        "name": "Printed Plum Shirt",
+        "price": 1950,
+        "images": [
+            "/images/mw3.jpg",
+            "/images/detail-3a.jpg",
+            "/images/detail-3b.jpg"
+        ],
+        "pattern": "Printed",
+        "arrival": "Old",
+        "sizes": [
+            "S",
+            "L",
+            "XL"
+        ],
+        "color": "Plum"
+    },
+    {
+        "id": 20,
+        "created_at": "2025-08-30 06:56:02.321311+00",
+        "name": "Brown Overshirt",
+        "price": 2200,
+        "images": [
+            "/images/na10.webp",
+            "/images/detail-20a.webp",
+            "/images/detail-20b.webp"
+        ],
+        "pattern": "Overshirt",
+        "arrival": "New",
+        "sizes": [
+            "M",
+            "L",
+            "XL"
+        ],
+        "color": "Brown"
+    },
+    {
+        "id": 15,
+        "created_at": "2025-08-25 07:36:37.432457+00",
+        "name": "Lavender Checked Shirt",
+        "price": 1300,
+        "images": [
+            "/images/na5.webp",
+            "/images/detail-15a.jpg",
+            "/images/detail-15b.webp"
+        ],
+        "pattern": "Checked",
+        "arrival": "New",
+        "sizes": [
+            "S",
+            "M",
+            "L"
+        ],
+        "color": "Lavender"
+    },
+    {
+        "id": 22,
+        "created_at": "2025-08-30 07:19:09.928961+00",
+        "name": "Dark Green Linen Shirt",
+        "price": 1660,
+        "images": [
+            "/images/na12.avif",
+            "/images/detail-22a.avif",
+            "/images/detail-22b.avif"
+        ],
+        "pattern": "Solid",
+        "arrival": "New",
+        "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "color": "Dark Green"
+    },
+    {
+        "id": 4,
+        "created_at": "2025-08-25 07:24:51.786623+00",
+        "name": "Printed Charcoal Shirt",
+        "price": 2250,
+        "images": [
+            "/images/mw4.avif",
+            "/images/detail-4a.avif",
+            "/images/detail-4b.avif"
+        ],
+        "pattern": "Printed",
+        "arrival": "Old",
+        "sizes": [
+            "S",
+            "M",
+            "L"
+        ],
+        "color": "Charcoal"
+    },
+    {
+        "id": 5,
+        "created_at": "2025-08-25 07:25:49.644073+00",
+        "name": "Orange Linen Shirt",
+        "price": 1550,
+        "images": [
+            "/images/mw5.jpg",
+            "/images/detail-5a.jpg",
+            "/images/detail-5b.jpg"
+        ],
+        "pattern": "Solid",
+        "arrival": "Old",
+        "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "color": "Orange"
+    },
+    {
+        "id": 6,
+        "created_at": "2025-08-25 07:27:10.335754+00",
+        "name": "Red Dogtooth Overshirt",
+        "price": 2300,
+        "images": [
+            "/images/mw6.webp",
+            "/images/detail-6a.webp",
+            "/images/detail-6b.webp"
+        ],
+        "pattern": "Dogtooth",
+        "arrival": "Old",
+        "sizes": [
+            "M",
+            "L",
+            "XL"
+        ],
+        "color": "Red"
+    },
+    {
+        "id": 7,
+        "created_at": "2025-08-25 07:28:10.226655+00",
+        "name": "Beige Linen Shirt",
+        "price": 1220,
+        "images": [
+            "/images/mw7.avif",
+            "/images/detail-7a.avif",
+            "/images/detail-7b.avif"
+        ],
+        "pattern": "Solid",
+        "arrival": "Old",
+        "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "color": "Beige"
+    },
+    {
+        "id": 8,
+        "created_at": "2025-08-25 07:29:07.509546+00",
+        "name": "Blue Crochet Shirt",
+        "price": 2050,
+        "images": [
+            "/images/mw8.webp",
+            "/images/detail-8a.webp",
+            "/images/detail-8b.webp"
+        ],
+        "pattern": "Crochet",
+        "arrival": "Old",
+        "sizes": [
+            "S",
+            "M"
+        ],
+        "color": "Blue"
+    },
+    {
+        "id": 9,
+        "created_at": "2025-08-25 07:30:04.214047+00",
+        "name": "Black Abstract Overshirt",
+        "price": 1600,
+        "images": [
+            "/images/mw9.webp",
+            "/images/detail-9a.jpg",
+            "/images/detail-9b.jpg"
+        ],
+        "pattern": "Abstract",
+        "arrival": "Old",
+        "sizes": [
+            "M",
+            "L",
+            "XL"
+        ],
+        "color": "Black"
+    },
+    {
+        "id": 10,
+        "created_at": "2025-08-25 07:30:54.471581+00",
+        "name": "Red Leather Jacket",
+        "price": 3030,
+        "images": [
+            "/images/mw10.png",
+            "/images/detail-10a.png",
+            "/images/detail-10b.png"
+        ],
+        "pattern": "Solid",
+        "arrival": "Old",
+        "sizes": [
+            "S",
+            "M",
+            "L"
+        ],
+        "color": "Red"
+    },
+    {
+        "id": 11,
+        "created_at": "2025-08-25 07:31:47.481641+00",
+        "name": "Green Linen Shirt",
+        "price": 2150,
+        "images": [
+            "/images/na1.jpg",
+            "/images/detail-11a.jpg",
+            "/images/detail-11b.jpg"
+        ],
+        "pattern": "Solid",
+        "arrival": "New",
+        "sizes": [
+            "S",
+            "M",
+            "L",
+            "XL"
+        ],
+        "color": "Green"
+    }
+]

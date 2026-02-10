@@ -21,15 +21,15 @@ const FeatureCard = ({ side, tagline, title, subtitle, link, imageSrc, ctaText, 
       transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
     >
       <Link to={link} className="absolute inset-0 z-10" aria-label={title} />
-      
-      <motion.img 
-        src={imageSrc} 
+
+      <motion.img
+        src={imageSrc}
         alt={title}
         className="absolute inset-0 w-full h-full object-cover"
         animate={{ scale: isHovered ? 1.05 : 1 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       />
-      
+
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
 
       <AnimatePresence>
@@ -44,7 +44,7 @@ const FeatureCard = ({ side, tagline, title, subtitle, link, imageSrc, ctaText, 
             <p className="text-sm font-semibold uppercase tracking-widest">{tagline}</p>
             <h3 className="mt-2 font-display text-4xl sm:text-5xl font-bold">{title}</h3>
             {subtitle && <p className="mt-1 text-xl font-sans">{subtitle}</p>}
-            
+
             <motion.div
               className="mt-6"
               initial={{ opacity: 0, y: 10 }}
@@ -65,27 +65,28 @@ const FeatureCard = ({ side, tagline, title, subtitle, link, imageSrc, ctaText, 
 const FeaturedSection = () => {
   const [hoveredCard, setHoveredCard] = useState(null);
 
-  const cardVariants = {
-    initial: { flexBasis: '50%' },
-    hovered: { flexBasis: '70%' },
-    shrunk: { flexBasis: '30%' },
-  };
-
   return (
     <section className="py-10 sm:py-12 bg-card">
       <Container>
-        <div 
+        <div
           className="flex flex-col md:flex-row gap-6 w-full h-[450px]"
           onMouseLeave={() => setHoveredCard(null)}
         >
           {features.map((feature) => (
             <motion.div
               key={feature.side}
-              variants={cardVariants}
-              animate={hoveredCard === feature.side ? 'hovered' : hoveredCard ? 'shrunk' : 'initial'}
+              style={{ flexBasis: '50%' }}   
+              initial={false}
+              animate={
+                hoveredCard === null
+                  ? { flexBasis: '50%' }
+                  : hoveredCard === feature.side
+                    ? { flexBasis: '70%' }
+                    : { flexBasis: '30%' }
+              }
               transition={{ duration: 0.7, ease: [0.42, 0, 0.58, 1] }}
             >
-              <FeatureCard 
+              <FeatureCard
                 {...feature}
                 isHovered={hoveredCard === feature.side}
                 isShrunk={hoveredCard !== null && hoveredCard !== feature.side}
